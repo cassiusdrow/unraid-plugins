@@ -1,0 +1,124 @@
+<?xml version='1.0' standalone='yes'?>
+
+<!DOCTYPE PLUGIN [
+   <!ENTITY name          "syslog-backup">
+   <!ENTITY author        "cassiusdrow">
+   <!ENTITY repo          "unraid-plugins">
+   <!ENTITY branch        "master">
+   <!ENTITY version       "2018.01.04">
+   <!ENTITY min           "6.3.5">
+
+   <!ENTITY plg           "&name;.plg">
+   <!ENTITY icon          "&name;.png">
+   <!ENTITY plg-ver       "&name;-&version;">
+   <!ENTITY plg-txz       "&plg-ver;.txz">
+   <!ENTITY plg-md5       "&plg-ver;.md5">
+
+   <!ENTITY git-svrXX     "https://raw.github.com">
+   <!ENTITY git-svr       "https://raw.githubusercontent.com">
+   <!ENTITY git-URL       "&git-svr;/&author;/&repo;/&branch;">
+   <!ENTITY arc-URL       "&git-URL;/archive">
+   <!ENTITY plgs-URL      "&git-URL;/plugins">
+
+   <!ENTITY fls-pkg-dir   "/boot/packages">
+   <!ENTITY fls-plgs-dir  "/boot/config/plugins">
+   <!ENTITY tfs-plgs-dir  "/usr/local/emhttp/plugins">
+
+   <!ENTITY fls-plg-dir   "&fls-plgs-dir;/&name;">
+   <!ENTITY tfs-plg-dir   "&tfs-plgs-dir;/&name;">
+
+   <!ENTITY plg-txz-URL   "&arc-URL;/&plg-txz;">
+   <!ENTITY plg-md5-URL   "&arc-URL;/&plg-md5;">
+
+   <!ENTITY fls-plg       "&fls-plgs-dir;/&plg;">
+   <!ENTITY fls-plg-txz   "&fls-plg-dir;/&plg-txz;">
+   <!ENTITY fls-plg-md5   "&fls-plg-dir;/&plg-md5;">
+
+   <!ENTITY pluginURL     "&plgs-URL;/&plg;">
+]>
+
+<PLUGIN
+   name="&name;"
+   author="&author;"
+   version="&version;"
+   pluginURL="&pluginURL;"
+   min="&min;"
+>
+
+<CHANGES>
+##&name;
+
+###&version;
+- Initial release
+</CHANGES>
+
+
+<!--
+Download the plugin tarball to the flash drive.
+-->
+<FILE Name="&fls-plg-txz;">
+<URL>&plg-txz-URL;</URL>
+</FILE>
+
+<!--
+Download the plugin tarball MD5 hash to the flash drive.
+-->
+<FILE Name="&fls-plg-md5;">
+<URL>&plg-md5-URL;</URL>
+</FILE>
+
+
+<!--
+Comments
+
+   <!ENTITY repo-URL      "http://slackware.mirror-server.org/slackware64-14.2/slackware64/a">
+   <!ENTITY prg-pkg       "filename-version.txz">
+   <!ENTITY prg-pkg-md5   "de646f44d881b6c4292e353b717792cd">
+   <!ENTITY prg-pkg-URL   "&repo-URL;/&prg-pkg;">
+
+Download a slackware package file:
+
+<FILE Name="&fls-pkg-dir;/&prg-pkg;" Run="upgradepkg --install-new">
+<URL>&prg-pkg-URL;</URL>
+<MD5>&prg-pkg-md5;</MD5>
+</FILE>
+
+-->
+
+
+
+<!--
+The 'post-install' script.
+-->
+<FILE Run="/bin/bash">
+<INLINE>
+
+# Create syslog copy directory
+#mkdir -p /boot/syslogs/cp
+
+# Manage file access modes
+
+
+# Link scripts to /usr/local/bin
+
+
+# Add cron entries
+
+
+
+
+</INLINE>
+</FILE>
+
+
+<!--
+The 'remove' script.
+-->
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+rm -r "&fls-plg-dir;"
+rm -r "&tfs-plg-dir;"
+</INLINE>
+</FILE>
+
+</PLUGIN>
